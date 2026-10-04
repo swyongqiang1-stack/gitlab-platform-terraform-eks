@@ -5,12 +5,21 @@ locals {
   }
 }
 
-
-
 locals {
   AZ = {
     region = "ap-southeast-1"
     AZ-A = "ap-southeast-1a"
     AZ-B = "ap-southeast-1b"
   }
+  AZ-A = {
+    public = "10.0.1.0/24"
+    eks_private = "10.0.16.0/20"
+    db_private = "10.0.32.0/24"
+  }
+  AZ-B = {
+    public = "10.0.2.0/24"
+    eks_private = "10.0.48.0/20"
+    db_private = "10.0.33.0/24"
+  }
 }
+

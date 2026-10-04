@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket       = local.s3.bucket
-    key          = local.s3.key
-    region       = local.region
+    bucket       = "elden-state-bucket"
+    key          = "gitlab/prod/terraform.tfstate"
+    region       = "ap-southeast-1"
     use_lockfile = true
   }
 }

@@ -38,13 +38,6 @@ provider "helm" {
       args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.gitlab.name]
       command     = "aws"
     }
-    default_tags {
-        tags = {
-        Project     = "gitlab"
-        Environment = "prod"
-        ManagedBy   = "terraform"
-        }
-    }
   }
 }
 

@@ -6,6 +6,9 @@ resource "aws_budgets_budget" "gitlab" {
   time_period_end   = "2087-06-15_00:00"
   time_period_start = "2026-07-01_00:00"
   time_unit         = "MONTHLY"
+  tags = {
+    Component = "budgets"
+  }
 
   notification {
     comparison_operator        = "GREATER_THAN"
