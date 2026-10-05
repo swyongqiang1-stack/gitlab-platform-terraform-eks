@@ -23,3 +23,8 @@ locals {
   }
 }
 
+
+locals {
+  iam_user = "arn:aws:iam::463884819678:user/terraform"
+  cluster_name = data.aws_eks_cluster.gitlab.name
+}

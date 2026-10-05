@@ -52,3 +52,8 @@ provider "kubernetes" {
   }
 }
 
+
+
+module "source" {
+  source = "../modules/vpc"
+}

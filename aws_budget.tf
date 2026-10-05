@@ -15,6 +15,6 @@ resource "aws_budgets_budget" "gitlab" {
     threshold                  = 40
     threshold_type             = "PERCENTAGE"
     notification_type          = "FORECASTED"
-    subscriber_email_addresses = [var.email]
+    subscriber_email_addresses = "gohu@outlook.com"
   }
 }
