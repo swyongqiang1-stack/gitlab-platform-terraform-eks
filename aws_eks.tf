@@ -11,10 +11,7 @@ resource "aws_eks_cluster" "gitlab" {
   version  = "1.35"
 
   vpc_config {
-    subnet_ids = [
-    modules.private_subnet_app_id[*],
-    modules.private_subnet_db_id[*]
-    ]
+    subnet_ids = module.vpc.private_subnet_app_id
   }
 
   depends_on = [
@@ -42,6 +39,6 @@ resource "aws_iam_role" "cluster" {
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
   role       = aws_iam_role.cluster.name
 }

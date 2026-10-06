@@ -2,7 +2,8 @@ resource "aws_eks_node_group" "gitlab" {
   cluster_name    = aws_eks_cluster.gitlab.name
   node_group_name = "gitlab"
   node_role_arn   = aws_iam_role.gitlab.arn
-  subnet_ids      = aws_subnet.gitlab[*].id
+  subnet_ids      = module.vpc.private_subnet_app_id
+  
   instance_types = ["c7a.xlarge"]
   tags = {
     Component = "node_group"
