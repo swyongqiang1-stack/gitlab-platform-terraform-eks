@@ -1,0 +1,39 @@
+serviceAccount:
+  create: false
+  name: external-dns
+
+commonLabels:
+  Project: gitlab
+  ManagedBy: terraform
+  Component: external-dns
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    memory: 256Mi
+
+serviceMonitor:
+  enabled: true
+sources:
+  - ingress
+
+domainFilters:
+  - erben.cn
+
+provider:
+  name: "aws"
+
+policy: upsert-only
+
+registry: "txt"
+
+txtOwnerId: gitlab-eks
+
+extraArgs:
+  aws-zone-type: public
+
+interval: 1m
+
+logLevel: "info"

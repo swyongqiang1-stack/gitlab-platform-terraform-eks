@@ -1,0 +1,17 @@
+clusterName: gitlab
+serviceAccount:
+  create: false
+  name: aws-load-balancer-controller
+region: ap-east-1
+defaultTags:
+  Project: gitlab
+  ManagedBy: terraform
+  Component: load-balancer
+defaultTargetType: ip
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

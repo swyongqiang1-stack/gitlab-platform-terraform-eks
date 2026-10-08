@@ -28,3 +28,9 @@ locals {
   iam_user = "arn:aws:iam::463884819678:user/terraform"
   cluster_name = data.aws_eks_cluster.gitlab.name
 }
+
+locals{
+  namespace = {
+    kube_system = data.aws_eks_cluster.gitlab.metadata[0].namespace
+  }
+}
