@@ -100,3 +100,10 @@ resource "aws_route_table_association" "private_db" {
 }
 
 
+
+
+
+resource "aws_db_subnet_group" "gitlab" {
+  name = "gitlab-db"
+  subnet_ids = aws_subnet.private_db[*].id
+}

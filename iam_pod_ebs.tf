@@ -15,12 +15,12 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "ebs" {
-  name   = "eks-pod-identity-ebs"
+  name   = "ebs"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "ebs" {
-  name = "ebs_policy"
+  name = "ebs-policy"
   role = aws_iam_role.ebs.id
 
   policy = jsonencode({

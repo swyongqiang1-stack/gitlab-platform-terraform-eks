@@ -1,0 +1,47 @@
+global:
+  hosts:
+    domain: erben.cn
+    hostSuffix: staging
+    https: true
+    gitlab:
+      name: gitlab.erben.cn
+
+  ingress:
+    enabled: true
+    class: none
+    provider: aws
+    path: /*
+    pathType: ImplementationSpecific
+    configureCertmanager: false
+    tls:
+      enabled: false
+
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/group.name: gitlab
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+      alb.ingress.kubernetes.io/certificate-arn: local.domain_arn
+
+  monitoring: true
+
+  registry: false
+
+  webservice:
+    workerTimeout: 60
+
+  sidekiq:
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "3"
+
+  shell:
+    port: 32022
+    tcp:
+      proxyProtocol: false
+  
+  appConfig:
+    gitlab_kas:
+      enabled: false

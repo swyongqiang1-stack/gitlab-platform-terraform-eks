@@ -1,0 +1,28 @@
+replicaCount: 2
+leaderElect: false
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    memory: 512Mi
+
+serviceAccount:
+  create: true
+  name: external-secrets
+  annotations: {}
+
+rbac:
+  create: true
+
+installCRDs: true
+
+webhook:
+  create: true
+
+certController:
+  create: true
+
+serviceMonitor:
+  enabled: true

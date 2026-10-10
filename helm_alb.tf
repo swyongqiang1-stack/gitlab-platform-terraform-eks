@@ -8,7 +8,7 @@ resource "helm_release" "alb" {
   values = [
     file("${path.module}"/values_alb.yaml)
   ]
-  
+
   set {
     vpcId = module.vpc.vpc_id
   }

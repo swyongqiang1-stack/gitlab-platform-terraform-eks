@@ -7,7 +7,7 @@ resource "aws_eks_addon" "cni" {
   }
 }
 
-resource "aws_eks_addon" "coredns" {
+resource "aws_eks_addon" "  " {
   cluster_name = local.cluster_name
   addon_name   = "coredns"
   tags = {

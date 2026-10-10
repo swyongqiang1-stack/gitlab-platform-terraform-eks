@@ -27,10 +27,13 @@ locals {
 locals {
   iam_user = "arn:aws:iam::463884819678:user/terraform"
   cluster_name = data.aws_eks_cluster.gitlab.name
+  repo = "swyongqiang1-stack/gitlab-platform-terraform-eks"
+  domain_arn = "arn:aws:acm:ap-southeast-1:463884819678:certificate/1880b9bc-3df9-416c-bc43-97e6a8851050"
 }
 
 locals{
   namespace = {
     kube_system = data.aws_eks_cluster.gitlab.metadata[0].namespace
+    gitlab = data.kubernetes_namespace_v1.gitlab.metadata[0].name
   }
 }

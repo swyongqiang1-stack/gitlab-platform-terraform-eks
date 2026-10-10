@@ -1,7 +1,7 @@
 clusterName: gitlab
 serviceAccount:
   create: false
-  name: aws-load-balancer-controller
+  name: alb-sa
 region: ap-east-1
 defaultTags:
   Project: gitlab
