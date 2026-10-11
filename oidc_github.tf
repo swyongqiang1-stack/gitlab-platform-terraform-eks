@@ -39,7 +39,7 @@ resource "aws_iam_role_policy" "oidc_github_gitlab" {
   name = "oidc-github-gitlab-policy"
   role = aws_iam_role.oidc_github_gitlab.id
 
-    policy = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {

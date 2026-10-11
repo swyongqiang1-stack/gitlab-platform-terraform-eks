@@ -45,3 +45,13 @@ global:
   appConfig:
     gitlab_kas:
       enabled: false
+
+
+  psql:
+    port: 5432
+    username: gitlabadmin
+    database: gitlabhq_production
+
+    password:
+      secret: gitlab-database-secret
+      key: password

@@ -3,9 +3,14 @@ resource "helm_release" "gitlab" {
   repository = "http://charts.gitlab.io/"
   chart      = "gitlab"
   version    = "10.4.1"
-  namespace = local.namespace.gitlab
+  namespace  = local.namespace.gitlab
 
   values = [
-    file("${path.module}"/values_gitlab.yaml)
+    file("${path.module}" / values_gitlab.yaml)
   ]
+
+  set {
+    name  = psql.host
+    value = data.aws_db_instance.rds.endpoint
+  }
 }

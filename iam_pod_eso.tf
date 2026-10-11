@@ -1,0 +1,37 @@
+resource "aws_iam_role" "eso" {
+  name               = "eso-role"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+}
+
+resource "aws_iam_role_policy" "eso" {
+  name = "eso-role-policy"
+  role = aws_iam_role.eso.id
+
+  policy = {
+    "Statement" : [
+      {
+        "Action" : [
+          "secretsmanager:GetResourcePolicy",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:ListSecretVersionIds"
+        ],
+        "Effect" : "Allow",
+        "Resource" : [
+          "*"
+        ]
+      }
+    ],
+    "Version" : "2012-10-17"
+  }
+}
+
+
+resource "aws_eks_pod_identity_association" "eso" {
+  cluster_name    = local.cluster_name
+  namespace       = local.namespace.gitlab
+  service_account = "external-secrets"
+  role_arn        = aws_iam_role.eso.arn
+
+  disable_session_tags = true
+}

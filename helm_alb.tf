@@ -3,14 +3,15 @@ resource "helm_release" "alb" {
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
   version    = "3.6.0"
-  namespace = local.namespace.kube_system
+  namespace  = local.namespace.kube_system
 
   values = [
-    file("${path.module}"/values_alb.yaml)
+    file("${path.module}" / values_alb.yaml)
   ]
 
   set {
-    vpcId = module.vpc.vpc_id
+    name  = vpcId
+    value = module.vpc.vpc_id
   }
 
 }

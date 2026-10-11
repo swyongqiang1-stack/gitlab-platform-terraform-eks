@@ -19,7 +19,7 @@ resource "kubernetes_service_account_v1" "alb" {
 
 resource "aws_eks_pod_identity_association" "alb" {
   cluster_name    = local.cluster_name
-  namespace       = "local.namespace.kube_system"
+  namespace       = local.namespace.kube_system
   service_account = "alb-sa"
   role_arn        = aws_iam_role.alb.arn
 

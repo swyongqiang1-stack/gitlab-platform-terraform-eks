@@ -8,30 +8,30 @@ resource "aws_iam_role_policy" "external_dns" {
   role = aws_iam_role.external_dns.id
 
   policy = {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "route53:ChangeResourceRecordSets",
-        "route53:ListResourceRecordSets",
-        "route53:ListTagsForResources"
-      ],
-      "Resource": [
-        "arn:aws:route53:::hostedzone/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "route53:ListHostedZones"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
-  ]
-}
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "route53:ChangeResourceRecordSets",
+          "route53:ListResourceRecordSets",
+          "route53:ListTagsForResources"
+        ],
+        "Resource" : [
+          "arn:aws:route53:::hostedzone/*"
+        ]
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "route53:ListHostedZones"
+        ],
+        "Resource" : [
+          "*"
+        ]
+      }
+    ]
+  }
 }
 
 resource "kubernetes_service_account_v1" "external_dns" {
@@ -44,7 +44,7 @@ resource "kubernetes_service_account_v1" "external_dns" {
 
 resource "aws_eks_pod_identity_association" "external_dns" {
   cluster_name    = local.cluster_name
-  namespace       = "local.namespace.kube_system"
+  namespace       = local.namespace.kube_system
   service_account = "external-dns-sa"
   role_arn        = aws_iam_role.external_dns.arn
 

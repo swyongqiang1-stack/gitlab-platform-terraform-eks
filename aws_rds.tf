@@ -23,9 +23,9 @@ resource "aws_db_instance" "gitlab" {
 
   multi_az = true
 
-  backup_retention_period  = 7
-  deletion_protection      = true
-  skip_final_snapshot      = false
+  backup_retention_period   = 7
+  deletion_protection       = true
+  skip_final_snapshot       = false
   final_snapshot_identifier = "gitlab-postgres-final-001"
 
   apply_immediately = false
