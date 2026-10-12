@@ -19,4 +19,9 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 data "aws_db_instance" "rds" {
+  db_instance_identifier = "gitlab-postgres"
+}
+
+data "aws_elasticache_replication_group" "gitlab" {
+  replication_group_id = "gitlab-valkey"
 }

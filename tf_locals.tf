@@ -37,3 +37,5 @@ locals {
     gitlab      = data.kubernetes_namespace_v1.gitlab.metadata[0].name
   }
 }
+
+

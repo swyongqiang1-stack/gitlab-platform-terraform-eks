@@ -55,3 +55,12 @@ global:
     password:
       secret: gitlab-database-secret
       key: password
+
+  redis:
+    port: 6379
+    scheme: rediss
+
+    auth:
+      enabled: true
+      secret: gitlab-redis
+      key: password

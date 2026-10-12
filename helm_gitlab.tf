@@ -10,7 +10,11 @@ resource "helm_release" "gitlab" {
   ]
 
   set {
-    name  = psql.host
-    value = data.aws_db_instance.rds.endpoint
+    name  = "global.psql.host"
+    value = data.aws_db_instance.rds.address
+  }
+  set {
+    name  = "global.redis.host"
+    value = data.aws_elasticache_replication_group.gitlab.primary_endpoint_address
   }
 }

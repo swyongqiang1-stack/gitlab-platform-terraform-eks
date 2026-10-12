@@ -25,6 +25,7 @@ resource "aws_elasticache_replication_group" "gitlab" {
   apply_immediately        = false
 
   tags = {
+    Name      = "valkey"
     Component = "cache"
   }
 }
