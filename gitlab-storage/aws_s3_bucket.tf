@@ -17,7 +17,7 @@ resource "aws_s3_bucket" "gitlab" {
   lifecycle {
     prevent_destroy = true
   }
-  
+
   tags = {
     Component = "storage"
   }

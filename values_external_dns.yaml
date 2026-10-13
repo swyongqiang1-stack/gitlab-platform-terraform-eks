@@ -28,7 +28,6 @@ provider:
 policy: upsert-only
 
 registry: "txt"
-
 txtOwnerId: gitlab-eks
 
 extraArgs:

@@ -1,10 +1,19 @@
 global:
   hosts:
     domain: erben.cn
-    hostSuffix: staging
     https: true
     gitlab:
       name: gitlab.erben.cn
+
+  serviceAccount:
+    enabled: true
+    create: false
+    name: gitlab-s3-sa
+
+  gatewayApi:
+    enabled: false
+    installEnvoy: false
+    configureCertmanager: false
 
   ingress:
     enabled: true
@@ -22,30 +31,6 @@ global:
       alb.ingress.kubernetes.io/target-type: ip
       alb.ingress.kubernetes.io/group.name: gitlab
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
-      alb.ingress.kubernetes.io/certificate-arn: local.domain_arn
-
-  monitoring: true
-
-  registry: false
-
-  webservice:
-    workerTimeout: 60
-
-  sidekiq:
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "3"
-
-  shell:
-    port: 32022
-    tcp:
-      proxyProtocol: false
-  
-  appConfig:
-    gitlab_kas:
-      enabled: false
-
 
   psql:
     port: 5432
@@ -64,3 +49,61 @@ global:
       enabled: true
       secret: gitlab-redis
       key: password
+
+appConfig:
+  object_store:
+    enabled: true
+
+    connection:
+      secret: gitlab-s3-config
+      key: connection
+
+  artifacts:
+    bucket: 463884819678-artifacts
+
+  lfs:
+    bucket: 463884819678-lfs
+
+  uploads:
+    bucket: 463884819678-uploads
+
+  packages:
+    bucket: 463884819678-packages
+
+  backups:
+    bucket: 463884819678-backups
+    tmpBucket: 463884819678-backup-tmp
+
+
+gitlab:
+  webservice:
+    minReplicas: 2
+    maxReplicas: 2
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        
+  sidekiq:
+    minReplicas: 1
+    maxReplicas: 1
+
+  gitaly:
+    persistence:
+      enabled: true
+      storageClass: gp3
+      size: 50Gi
+
+registry:
+  enabled: false
+
+nginx-ingress:
+  enabled: false
+
+installCertmanager: false
+
+gitlab-runner:
+  install: false
+
+prometheus:
+  install: false

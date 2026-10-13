@@ -26,11 +26,18 @@ resource "aws_iam_role_policy" "eso" {
   }
 }
 
+resource "kubernetes_service_account_v1" "external_dns" {
+  metadata {
+    name      = "external-secrets-sa"
+    namespace = local.namespace.gitlab
+  }
+}
+
 
 resource "aws_eks_pod_identity_association" "eso" {
   cluster_name    = local.cluster_name
   namespace       = local.namespace.gitlab
-  service_account = "external-secrets"
+  service_account = kubernetes_service_account_v1.external_dns.metadata[0].name
   role_arn        = aws_iam_role.eso.arn
 
   disable_session_tags = true

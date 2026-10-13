@@ -17,4 +17,8 @@ resource "helm_release" "gitlab" {
     name  = "global.redis.host"
     value = data.aws_elasticache_replication_group.gitlab.primary_endpoint_address
   }
+  set {
+    name  = "global.ingress.annotations.alb.ingress.kubernetes.io/certificate-arn"
+    value = local.domain_arn
+  }
 }

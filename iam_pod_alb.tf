@@ -20,7 +20,7 @@ resource "kubernetes_service_account_v1" "alb" {
 resource "aws_eks_pod_identity_association" "alb" {
   cluster_name    = local.cluster_name
   namespace       = local.namespace.kube_system
-  service_account = "alb-sa"
+  service_account = kubernetes_service_account_v1.alb.metadata[0].name
   role_arn        = aws_iam_role.alb.arn
 
   disable_session_tags = true

@@ -18,8 +18,8 @@ resource "aws_elasticache_replication_group" "gitlab" {
   transit_encryption_enabled = true
   at_rest_encryption_enabled = true
 
-  automatic_failover_enabled = true
-  multi_az_enabled           = true
+  automatic_failover_enabled = false
+  multi_az_enabled           = false #if you want to enable az ,num_cache_clusters need to modify to 2 or more
 
   snapshot_retention_limit = 3
   apply_immediately        = false

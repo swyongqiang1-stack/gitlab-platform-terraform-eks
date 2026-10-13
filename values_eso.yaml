@@ -9,8 +9,8 @@ resources:
     memory: 512Mi
 
 serviceAccount:
-  create: true
-  name: external-secrets
+  create: false
+  name: external-secrets-sa
   annotations: {}
 
 rbac:
