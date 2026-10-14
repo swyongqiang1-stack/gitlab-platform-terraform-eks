@@ -17,7 +17,7 @@ resource "aws_eks_pod_identity_association" "gitlab_s3" {
   cluster_name    = local.cluster_name
   namespace       = local.namespace.gitlab
   service_account = kubernetes_service_account_v1.gitlab_s3.metadata[0].name
-  role_arn        = aws_iam_role.external_dns.arn
+  role_arn        = aws_iam_role.gitlab_s3.arn
 
   disable_session_tags = true
 }

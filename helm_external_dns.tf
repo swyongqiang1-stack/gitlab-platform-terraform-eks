@@ -5,7 +5,7 @@ resource "helm_release" "external_dns" {
   version    = "1.23.0"
   namespace  = local.namespace.kube_system
   values = [
-    file("${path.module}" / values_external_dns.yaml)
+    file("${path.module}/values_external_dns.yaml")
   ]
 
 }

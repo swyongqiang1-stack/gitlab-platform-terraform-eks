@@ -25,3 +25,11 @@ data "aws_db_instance" "rds" {
 data "aws_elasticache_replication_group" "gitlab" {
   replication_group_id = "gitlab-valkey"
 }
+
+
+
+data "aws_acm_certificate" "gitlab" {
+  domain      = "*.erben.cn"
+  statuses    = ["ISSUED"]
+  most_recent = true
+}

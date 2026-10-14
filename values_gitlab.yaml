@@ -4,6 +4,9 @@ global:
     https: true
     gitlab:
       name: gitlab.erben.cn
+  appConfig:
+    object_store:
+      enabled: true
 
   serviceAccount:
     enabled: true
@@ -31,7 +34,6 @@ global:
       alb.ingress.kubernetes.io/target-type: ip
       alb.ingress.kubernetes.io/group.name: gitlab
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
-
   psql:
     port: 5432
     username: gitlabadmin
@@ -50,9 +52,7 @@ global:
       secret: gitlab-redis
       key: password
 
-appConfig:
-  object_store:
-    enabled: true
+
 
     connection:
       secret: gitlab-s3-config
@@ -83,7 +83,7 @@ gitlab:
       enabled: true
       serviceMonitor:
         enabled: true
-        
+
   sidekiq:
     minReplicas: 1
     maxReplicas: 1

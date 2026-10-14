@@ -6,7 +6,7 @@ resource "helm_release" "alb" {
   namespace  = local.namespace.kube_system
 
   values = [
-    file("${path.module}" / values_alb.yaml)
+    file("${path.module}/values_alb.yaml")
   ]
 
   set {

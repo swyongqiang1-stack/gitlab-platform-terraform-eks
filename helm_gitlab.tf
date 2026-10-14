@@ -6,7 +6,7 @@ resource "helm_release" "gitlab" {
   namespace  = local.namespace.gitlab
 
   values = [
-    file("${path.module}" / values_gitlab.yaml)
+    file("${path.module}/values_gitlab.yaml")
   ]
 
   set {
@@ -18,7 +18,7 @@ resource "helm_release" "gitlab" {
     value = data.aws_elasticache_replication_group.gitlab.primary_endpoint_address
   }
   set {
-    name  = "global.ingress.annotations.alb.ingress.kubernetes.io/certificate-arn"
+    name = "global.ingress.annotations.alb\\.ingress\\.kubernetes\\.io/certificate-arn"
     value = local.domain_arn
   }
 }

@@ -6,6 +6,6 @@ resource "helm_release" "eso" {
   namespace  = local.namespace.gitlab
 
   values = [
-    file("${path.module}" / values_eso.yaml)
+    file("${path.module}/values_eso.yaml")
   ]
 }

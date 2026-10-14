@@ -7,4 +7,11 @@ resource "kubernetes_namespace_v1" "gitlab" {
   }
 }
 
-
+resource "kubernetes_namespace_v1" "monitoring" {
+  metadata {
+    labels = {
+      namespaces = "monitoring"
+    }
+    name = "monitoring"
+  }
+}

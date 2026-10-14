@@ -36,3 +36,4 @@ extraArgs:
 interval: 1m
 
 logLevel: "info"
+
