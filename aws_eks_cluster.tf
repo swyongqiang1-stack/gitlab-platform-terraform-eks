@@ -17,6 +17,16 @@ resource "aws_eks_cluster" "gitlab" {
   depends_on = [
     aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy
   ]
+
+  enabled_cluster_log_types = [
+    "api",
+    "audit",
+    "authenticator",
+    "controllerManager",
+    "scheduler"
+  ]
+  #https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html#viewing-control-plane-logs
+  #cluster control logs
 }
 
 resource "aws_iam_role" "cluster" {

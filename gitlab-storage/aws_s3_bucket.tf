@@ -121,7 +121,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "loki" {
 
 resource "aws_s3_bucket_lifecycle_configuration" "loki" {
   bucket = aws_s3_bucket.loki
-  
+
   rule {
     id     = "cleanup-old-versions"
     status = "Enabled"

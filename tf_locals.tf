@@ -29,6 +29,7 @@ locals {
   cluster_name = data.aws_eks_cluster.gitlab.name
   repo         = "swyongqiang1-stack/gitlab-platform-terraform-eks"
   domain_arn   = data.aws_acm_certificate.gitlab.arn
+  email        = "gohu@outlook.com"
 }
 
 locals {
