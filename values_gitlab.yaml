@@ -4,9 +4,20 @@ global:
     https: true
     gitlab:
       name: gitlab.erben.cn
+
+  antiAffinity: soft
+  affinity:
+    podAntiAffinity:
+      topologyKey: "kubernetes.io/hostname"
+      
+  common:
+    labels:
+      Component: gitlab
+
   appConfig:
     object_store:
       enabled: true
+ 
 
   serviceAccount:
     enabled: true

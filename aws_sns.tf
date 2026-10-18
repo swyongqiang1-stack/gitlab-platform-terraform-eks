@@ -1,5 +1,8 @@
 resource "aws_sns_topic" "alerts" {
   name = "gitlab-alerts"
+  tags = {
+    Component = "sns"
+  }
 }
 
 resource "aws_sns_topic_subscription" "email" {

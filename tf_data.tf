@@ -33,3 +33,10 @@ data "aws_acm_certificate" "gitlab" {
   statuses    = ["ISSUED"]
   most_recent = true
 }
+
+
+data "aws_lb" "gitlab" {
+  tags = {
+    "ingress.k8s.aws/stack" = "gitlab"
+  }
+}

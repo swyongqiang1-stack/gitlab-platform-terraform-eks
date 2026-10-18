@@ -26,3 +26,8 @@ certController:
 
 serviceMonitor:
   enabled: true
+
+commonLabels:
+  Project: gitlab
+  ManagedBy: terraform
+  Component: ESO

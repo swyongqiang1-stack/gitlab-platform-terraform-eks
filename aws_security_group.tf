@@ -4,7 +4,7 @@ resource "aws_security_group" "rds" {
 
   tags = {
     Name      = "gitlab-rds-sg"
-    Component = "database"
+    Component = "security_group"
   }
 }
 

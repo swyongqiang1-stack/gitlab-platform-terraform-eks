@@ -13,5 +13,8 @@ resource "helm_release" "alb" {
     name  = vpcId
     value = module.vpc.vpc_id
   }
-
+  set {
+    name = "alb\\.ingress\\.kubernetes\\.io/group\\.name"
+    value = "gitlab"
+  }
 }
