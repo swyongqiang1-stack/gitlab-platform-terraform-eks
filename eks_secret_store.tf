@@ -1,0 +1,20 @@
+resource "kubernetes_manifest" "secret_store" {
+  manifest = {
+    apiVersion = "external-secrets.io/v1"
+    kind       = "SecretStore"
+
+    metadata = {
+      name      = "aws-secrets"
+      namespace = "gitlab"
+    }
+
+    spec = {
+      provider = {
+        aws = {
+          service = "SecretsManager"
+          region  = "ap-southeast-1"
+        }
+      }
+    }
+  }
+}
