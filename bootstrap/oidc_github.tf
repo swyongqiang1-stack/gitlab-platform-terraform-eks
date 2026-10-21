@@ -7,7 +7,7 @@ resource "aws_iam_openid_connect_provider" "github" {
 
 
 locals {
-    repo         = "swyongqiang1-stack/gitlab-platform-terraform-eks"
+  repo = "swyongqiang1-stack/gitlab-platform-terraform-eks"
 }
 
 resource "aws_iam_role" "oidc_github_gitlab" {

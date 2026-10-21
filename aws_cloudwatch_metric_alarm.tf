@@ -22,7 +22,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpu" {
   datapoints_to_alarm = 2
   tags = {
     Component = "metric_alarm"
-  } 
+  }
 
   treat_missing_data = "missing"
 
@@ -52,7 +52,7 @@ resource "aws_cloudwatch_metric_alarm" "Valkey_cpu" {
 
   tags = {
     Component = "metric_alarm"
-  } 
+  }
 
   statistic = "Average"
   period    = 60
@@ -83,10 +83,10 @@ resource "aws_cloudwatch_metric_alarm" "alb" {
     LoadBalancer     = data.aws_lb.gitlab.arn_suffix
     AvailabilityZone = local.AZ.region
   }
-  
+
   tags = {
     Component = "metric_alarm"
-  } 
+  }
 
   statistic = "Sum"
   period    = 60

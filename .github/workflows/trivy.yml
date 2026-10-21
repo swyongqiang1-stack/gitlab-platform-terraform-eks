@@ -3,9 +3,6 @@ name: Trivy Security Scan
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-  pull_request:
 
 permissions:
   contents: read

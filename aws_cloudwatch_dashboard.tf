@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_dashboard" "gitlab" {
 
   dashboard_name = "gitlab-monitoring"
-  
+
   dashboard_body = jsonencode({
 
     widgets = [
