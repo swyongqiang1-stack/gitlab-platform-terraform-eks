@@ -1,5 +1,6 @@
+
 replicaCount: 2
-leaderElect: false
+leaderElect: true
 
 resources:
   requests:
@@ -20,12 +21,48 @@ installCRDs: true
 
 webhook:
   create: true
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
 
 certController:
   create: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
 
 serviceMonitor:
   enabled: true
+
+livenessProbe:
+  enabled: true
+
+readinessProbe:
+  enabled: true
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+webhook:
+  create: true
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
 
 commonLabels:
   Project: gitlab

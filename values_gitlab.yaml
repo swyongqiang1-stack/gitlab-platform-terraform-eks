@@ -8,16 +8,11 @@ global:
   antiAffinity: soft
   affinity:
     podAntiAffinity:
-      topologyKey: "kubernetes.io/hostname"
-      
+      topologyKey: kubernetes.io/hostname
+
   common:
     labels:
       Component: gitlab
-
-  appConfig:
-    object_store:
-      enabled: true
- 
 
   serviceAccount:
     enabled: true
@@ -36,6 +31,7 @@ global:
     path: /*
     pathType: ImplementationSpecific
     configureCertmanager: false
+
     tls:
       enabled: false
 
@@ -43,16 +39,19 @@ global:
       kubernetes.io/ingress.class: alb
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/backend-protocol: HTTP
       alb.ingress.kubernetes.io/group.name: gitlab
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+
   psql:
     port: 5432
-    username: gitlabadmin
+    username: admin
     database: gitlabhq_production
 
     password:
-      secret: gitlab-database-secret
-      key: password
+      secret: gitlab-secret
+      key: rds
+
 
   redis:
     port: 6379
@@ -60,36 +59,54 @@ global:
 
     auth:
       enabled: true
-      secret: gitlab-redis
-      key: password
+      secret: gitlab-secret
+      key: redis
 
 
+  appConfig:
+    object_store:
+      enabled: true
+      connection:
+        secret: gitlab-secret
+        key: s3
 
-    connection:
-      secret: gitlab-s3-config
-      key: connection
+    artifacts:
+      bucket: 463884819678-artifacts
 
-  artifacts:
-    bucket: 463884819678-artifacts
+    lfs:
+      bucket: 463884819678-lfs
 
-  lfs:
-    bucket: 463884819678-lfs
+    uploads:
+      bucket: 463884819678-uploads
 
-  uploads:
-    bucket: 463884819678-uploads
+    packages:
+      bucket: 463884819678-packages
 
-  packages:
-    bucket: 463884819678-packages
+    backups:
+      bucket: 463884819678-backups
+      tmpBucket: 463884819678-backup-tmp
+      objectStorage:
+        backend: s3
 
-  backups:
-    bucket: 463884819678-backups
-    tmpBucket: 463884819678-backup-tmp
+  registry:
+    enabled: false
+
+
+postgresql:
+  install: false
+
+redis:
+  install: false
+
+minio:
+  enabled: false
 
 
 gitlab:
   webservice:
     minReplicas: 2
     maxReplicas: 2
+
     metrics:
       enabled: true
       serviceMonitor:
@@ -102,8 +119,9 @@ gitlab:
   gitaly:
     persistence:
       enabled: true
-      storageClass: gp3
+      storageClass: ebs-storage
       size: 50Gi
+
 
 registry:
   enabled: false

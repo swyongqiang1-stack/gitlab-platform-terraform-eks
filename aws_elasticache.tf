@@ -11,12 +11,15 @@ resource "aws_elasticache_replication_group" "gitlab" {
   num_cache_clusters = 1
 
   subnet_group_name  = aws_elasticache_subnet_group.gitlab.name
-  security_group_ids = aws_security_group.valkey.id
+  security_group_ids = [aws_security_group.valkey.id]
 
   parameter_group_name = aws_elasticache_parameter_group.gitlab.name
 
   transit_encryption_enabled = true
   at_rest_encryption_enabled = true
+  
+  auth_token_wo = ephemeral.random_password.gitlab["redis"].result
+  auth_token_wo_version = 1
 
   automatic_failover_enabled = false
   multi_az_enabled           = false #if you want to enable az ,num_cache_clusters need to modify to 2 or more

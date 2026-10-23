@@ -18,7 +18,7 @@ resource "aws_db_instance" "gitlab" {
   publicly_accessible = false
   port                = 5432
 
-  username                    = "gitlabadmin"
+  username                    = "admin"
   manage_master_user_password = true
 
   multi_az = true

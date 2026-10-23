@@ -5,6 +5,46 @@ resource "aws_iam_role" "gitlab_s3" {
 
 
 
+locals {
+  buckets = toset([
+    "artifacts",
+    "lfs",
+    "uploads",
+    "packages",
+    "backups",
+    "backup-tmp"
+  ])
+}
+
+
+resource "aws_iam_role_policy" "gitlab_s3" {
+  for_each      = local.buckets
+  name = "gitlab-s3-policy"
+  role = aws_iam_role.gitlab_s3.id
+
+  policy ={
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": "arn:aws:s3:::463884819678-${each.key}/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::463884819678-${each.key}/*"
+        }
+    ]
+  }
+}
+
 resource "kubernetes_service_account_v1" "gitlab_s3" {
   metadata {
     name      = "gitlab-s3-sa"

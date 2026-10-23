@@ -1,7 +1,3 @@
-# =================================
-# ① 全局配置
-# =================================
-
 global:
   logging:
     format: json
@@ -11,30 +7,16 @@ global:
     project: gitlab
     environment: lab
 
-
-# =================================
-# ② Argo CD 软件配置
-# =================================
-
 configs:
   cm:
     admin.enabled: true
     timeout.reconciliation: 120s
 
   params:
-    server.insecure: true
-
-  rbac:
-    policy.default: ""
-    policy.csv: ""
-
-
-# =================================
-# ③ Application Controller
-# =================================
+    server.insecure: false
 
 controller:
-  replicas: 2
+  replicas: 1
 
   resources:
     requests:
@@ -42,12 +24,7 @@ controller:
       memory: 256Mi
 
   metrics:
-    enabled: enabled
-
-
-# =================================
-# ④ Repository Server
-# =================================
+    enabled: true
 
 repoServer:
   replicas: 2
@@ -58,12 +35,7 @@ repoServer:
       memory: 256Mi
 
   metrics:
-    enabled: enabled
-
-
-# =================================
-# ⑤ Argo CD Server
-# =================================
+    enabled: true
 
 server:
   replicas: 2
@@ -80,23 +52,18 @@ server:
     enabled: false
 
   metrics:
-    enabled: enabled
-
-
-# =================================
-# ⑥ Redis
-# =================================
+    enabled: true
 
 redis:
   enabled: true
 
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
 redis-ha:
   enabled: false
-
-
-# =================================
-# ⑦ 可选组件
-# =================================
 
 dex:
   enabled: false
@@ -107,10 +74,10 @@ notifications:
 applicationSet:
   replicas: 2
 
-
-# =================================
-# ⑧ CRD
-# =================================
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
 
 crds:
   install: true

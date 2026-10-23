@@ -1,13 +1,12 @@
 clusterName: gitlab
+region: ap-southeast-1
+
+replicaCount: 2
+
 serviceAccount:
   create: false
   name: alb-sa
-region: ap-east-1
-defaultTags:
-  Project: gitlab
-  ManagedBy: terraform
-  Component: load-balancer
-defaultTargetType: ip
+
 resources:
   requests:
     cpu: 100m
@@ -15,3 +14,16 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+
+defaultTags:
+  Project: gitlab
+  ManagedBy: terraform
+  Component: load-balancer
+
+defaultTargetType: ip
+
+podDisruptionBudget:
+  maxUnavailable: 1
+
+serviceMonitor:
+  enabled: true

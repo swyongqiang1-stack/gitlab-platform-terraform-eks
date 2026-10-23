@@ -17,7 +17,7 @@ resource "kubernetes_manifest" "grafana_external_secret" {
       }
 
       target = {
-        name           = "monitoring-secret"
+        name           = "gitlab-secret"
         creationPolicy = "Owner"
       }
 
@@ -32,13 +32,13 @@ resource "kubernetes_manifest" "grafana_external_secret" {
   }
 }
 
-resource "kubernetes_manifest" "gitlab_external_secret" {
+resource "kubernetes_manifest" "rds_external_secret" {
   manifest = {
     apiVersion = "external-secrets.io/v1"
     kind       = "ExternalSecret"
 
     metadata = {
-      name      = "gitlab-secrets"
+      name      = "rds-secrets"
       namespace = "gitlab"
     }
 
@@ -58,7 +58,79 @@ resource "kubernetes_manifest" "gitlab_external_secret" {
       dataFrom = [
         {
           extract = {
-            key = "gitlab/prod/database"
+            key = "gitlab/prod/rds"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+resource "kubernetes_manifest" "s3_external_secret" {
+  manifest = {
+    apiVersion = "external-secrets.io/v1"
+    kind       = "ExternalSecret"
+
+    metadata = {
+      name      = "s3-secrets"
+      namespace = "gitlab"
+    }
+
+    spec = {
+      refreshInterval = "1h"
+
+      secretStoreRef = {
+        name = "aws-secrets"
+        kind = "ClusterSecretStore"
+      }
+
+      target = {
+        name           = "gitlab-secret"
+        creationPolicy = "Owner"
+      }
+
+      dataFrom = [
+        {
+          extract = {
+            key = "gitlab/prod/s3"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+resource "kubernetes_manifest" "rds_external_secret" {
+  manifest = {
+    apiVersion = "external-secrets.io/v1"
+    kind       = "ExternalSecret"
+
+    metadata = {
+      name      = "rds-secrets"
+      namespace = "gitlab"
+    }
+
+    spec = {
+      refreshInterval = "1h"
+
+      secretStoreRef = {
+        name = "aws-secrets"
+        kind = "ClusterSecretStore"
+      }
+
+      target = {
+        name           = "gitlab-secret"
+        creationPolicy = "Owner"
+      }
+
+      data = [
+        {
+          secretKey = "password"
+          remoteRef = {
+            key      = aws_db_instance.gitlab.master_user_secret[0].secret_arn
+            property = "password"
           }
         }
       ]

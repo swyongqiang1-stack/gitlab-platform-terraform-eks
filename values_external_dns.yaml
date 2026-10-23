@@ -1,11 +1,11 @@
+replicaCount: 1
+
 serviceAccount:
   create: false
   name: external-dns-sa
 
-commonLabels:
-  Project: gitlab
-  ManagedBy: terraform
-  Component: external-dns
+rbac:
+  create: true
 
 resources:
   requests:
@@ -14,26 +14,30 @@ resources:
   limits:
     memory: 256Mi
 
-serviceMonitor:
-  enabled: true
 sources:
   - ingress
+
+provider:
+  name: aws
 
 domainFilters:
   - erben.cn
 
-provider:
-  name: "aws"
-
-policy: upsert-only
-
-registry: "txt"
-txtOwnerId: gitlab-eks
-
 extraArgs:
   aws-zone-type: public
 
+policy: upsert-only
+
+registry: txt
+txtOwnerId: gitlab-eks
+
 interval: 1m
+logLevel: info
 
-logLevel: "info"
+serviceMonitor:
+  enabled: true
 
+commonLabels:
+  Project: gitlab
+  ManagedBy: terraform
+  Component: external-dns

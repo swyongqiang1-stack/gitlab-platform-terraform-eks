@@ -4,6 +4,34 @@ resource "aws_iam_role" "loki_s3" {
 }
 
 
+resource "aws_iam_role_policy" "loki_s3" {
+  for_each      = local.buckets
+  name = "loki-s3-policy"
+  role = aws_iam_role.loki_s3.id
+
+  policy ={
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": "arn:aws:s3:::463884819678-loki/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::463884819678-loki/*"
+        }
+    ]
+  }
+}
+
 
 resource "kubernetes_service_account_v1" "loki_s3" {
   metadata {
