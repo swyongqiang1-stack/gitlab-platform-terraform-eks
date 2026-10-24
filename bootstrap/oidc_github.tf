@@ -10,8 +10,8 @@ locals {
   repo = "swyongqiang1-stack/gitlab-platform-terraform-eks"
 }
 
-resource "aws_iam_role" "oidc_github_gitlab" {
-  name = "oidc-github-gitlab"
+resource "aws_iam_role" "github" {
+  name = "github"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -33,23 +33,6 @@ resource "aws_iam_role" "oidc_github_gitlab" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
         }
-      }
-    ]
-  })
-}
-
-
-resource "aws_iam_role_policy" "oidc_github_gitlab" {
-  name = "oidc-github-gitlab-policy"
-  role = aws_iam_role.oidc_github_gitlab.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect   = "Allow"
-        Action   = ["eks:DescribeCluster"]
-        Resource = aws_eks_cluster.gitlab.arn
       }
     ]
   })

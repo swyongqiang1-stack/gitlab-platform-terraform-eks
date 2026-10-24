@@ -1,11 +1,4 @@
 locals {
-  s3 = {
-    bucket = "elden-state-bucket"
-    key    = "gitlab/prod/terraform.tfstate"
-  }
-}
-
-locals {
   AZ = {
     region = "ap-southeast-1"
     AZ-A   = "ap-southeast-1a"
@@ -34,9 +27,9 @@ locals {
 
 locals {
   namespace = {
-    kube_system = data.aws_eks_cluster.gitlab.metadata[0].namespace
-    gitlab      = data.kubernetes_namespace_v1.gitlab.metadata[0].name
-    monitoring  = data.kubernetes_namespace_v1.monitoring.metadata[0].name
+    kube_system = "kube-system"
+    gitlab      = "gitlab"
+    monitoring  = "monitoring"
   }
 }
 

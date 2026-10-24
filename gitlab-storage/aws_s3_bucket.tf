@@ -1,3 +1,14 @@
+terraform {
+  backend "s3" {
+    bucket       = "elden-state-bucket"
+    key          = "gitlab-storage/terraform.tfstate"
+    region       = "ap-southeast-1"
+    use_lockfile = true
+  }
+}
+
+
+
 locals {
   buckets = toset([
     "artifacts",
@@ -71,6 +82,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "gitlab" {
       noncurrent_days = 30
     }
   }
+  depends_on = [
+  aws_s3_bucket_versioning.gitlab
+]
 }
 
 
@@ -93,7 +107,7 @@ resource "aws_s3_bucket" "loki" {
 }
 
 resource "aws_s3_bucket_public_access_block" "loki" {
-  bucket = aws_s3_bucket.loki
+  bucket = aws_s3_bucket.loki.id
 
   block_public_acls       = true
   ignore_public_acls      = true
@@ -102,7 +116,7 @@ resource "aws_s3_bucket_public_access_block" "loki" {
 }
 
 resource "aws_s3_bucket_versioning" "loki" {
-  bucket = aws_s3_bucket.loki
+  bucket = aws_s3_bucket.loki.id
 
   versioning_configuration {
     status = "Enabled"
@@ -110,7 +124,7 @@ resource "aws_s3_bucket_versioning" "loki" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "loki" {
-  bucket = aws_s3_bucket.loki
+  bucket = aws_s3_bucket.loki.id
 
   rule {
     apply_server_side_encryption_by_default {
@@ -120,7 +134,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "loki" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "loki" {
-  bucket = aws_s3_bucket.loki
+  bucket = aws_s3_bucket.loki.id
 
   rule {
     id     = "cleanup-old-versions"
@@ -128,8 +142,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "loki" {
 
     filter {}
 
-    noncurrent_version_expiration {
-      noncurrent_days = 30
-    }
   }
 }
+
+
+

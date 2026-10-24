@@ -3,7 +3,7 @@ output "vpc_id" {
 }
 
 output "public_subnet_id" {
-  value = aws_subnet.public_subnet[*].id
+  value = aws_subnet.public[*].id
 }
 
 output "private_subnet_app_id" {
@@ -12,4 +12,8 @@ output "private_subnet_app_id" {
 
 output "private_subnet_db_id" {
   value = aws_subnet.private_db[*].id
+}
+
+output "db_subnet_group_name" {
+  value = aws_db_subnet_group.gitlab.name
 }

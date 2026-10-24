@@ -29,31 +29,54 @@ provider "aws" {
 
 
 provider "helm" {
-  kubernetes {
-    host                   = data.aws_eks_cluster.gitlab.endpoint
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.gitlab.certificate_authority[0].data)
+  kubernetes = {
+    host = aws_eks_cluster.gitlab.endpoint
 
-    exec {
+    cluster_ca_certificate = base64decode(
+      aws_eks_cluster.gitlab.certificate_authority[0].data
+    )
+
+    exec = {
       api_version = "client.authentication.k8s.io/v1beta1"
-      args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.gitlab.name]
-      command     = "aws"
+      args = [
+        "eks",
+        "get-token",
+        "--cluster-name",
+        aws_eks_cluster.gitlab.name
+      ]
+      command = "aws"
     }
   }
 }
 
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.gitlab.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.gitlab.certificate_authority[0].data)
+  host = aws_eks_cluster.gitlab.endpoint
+
+  cluster_ca_certificate = base64decode(
+    aws_eks_cluster.gitlab.certificate_authority[0].data
+  )
 
   exec {
-    api_version = "client.authentication.k8s.io/v1"
-    args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.gitlab.name]
-    command     = "aws"
+    api_version = "client.authentication.k8s.io/v1beta1"
+    args = [
+      "eks",
+      "get-token",
+      "--cluster-name",
+      aws_eks_cluster.gitlab.name
+    ]
+    command = "aws"
   }
 }
 
 
-
-module "source" {
+module "vpc" {
   source = "../modules/vpc"
+
+  vpc_cidr_block    = var.vpc_cidr_block
+  region            = var.region
+  AZ                = var.AZ
+  public_subnet     = var.public_subnet
+  private_subnet_app = var.private_subnet_app
+  private_subnet_db  = var.private_subnet_db
 }
+
