@@ -83,8 +83,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "gitlab" {
     }
   }
   depends_on = [
-  aws_s3_bucket_versioning.gitlab
-]
+    aws_s3_bucket_versioning.gitlab
+  ]
 }
 
 

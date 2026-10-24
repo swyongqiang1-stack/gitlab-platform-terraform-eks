@@ -72,10 +72,10 @@ provider "kubernetes" {
 module "vpc" {
   source = "../modules/vpc"
 
-  vpc_cidr_block    = var.vpc_cidr_block
-  region            = var.region
-  AZ                = var.AZ
-  public_subnet     = var.public_subnet
+  vpc_cidr_block     = var.vpc_cidr_block
+  region             = var.region
+  AZ                 = var.AZ
+  public_subnet      = var.public_subnet
   private_subnet_app = var.private_subnet_app
   private_subnet_db  = var.private_subnet_db
 }

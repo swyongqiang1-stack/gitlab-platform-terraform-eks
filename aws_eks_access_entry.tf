@@ -31,7 +31,7 @@ resource "aws_eks_access_entry" "github" {
 resource "aws_eks_access_policy_association" "github" {
   cluster_name  = aws_eks_cluster.gitlab.name
   principal_arn = aws_eks_access_entry.github.principal_arn
-  
+
   policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
 
   access_scope {

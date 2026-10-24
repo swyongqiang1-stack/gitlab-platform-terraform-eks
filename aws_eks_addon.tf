@@ -37,9 +37,9 @@ resource "aws_eks_addon" "ebs_csi_driver" {
     service_account = "ebs-csi-controller-sa"
     role_arn        = aws_iam_role.ebs.arn
   }
-    depends_on = [
+  depends_on = [
     aws_eks_addon.pod_identity_agent
-    ]
+  ]
 }
 
 

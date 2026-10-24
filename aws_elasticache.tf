@@ -17,8 +17,8 @@ resource "aws_elasticache_replication_group" "gitlab" {
 
   transit_encryption_enabled = true
   at_rest_encryption_enabled = true
-  
-  auth_token_wo = ephemeral.random_password.gitlab["redis"].result
+
+  auth_token_wo         = ephemeral.random_password.gitlab["redis"].result
   auth_token_wo_version = 1
 
   automatic_failover_enabled = false

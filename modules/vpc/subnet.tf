@@ -4,9 +4,9 @@ resource "aws_subnet" "public" {
   cidr_block        = var.public_subnet[count.index]
   availability_zone = var.AZ[count.index]
   tags = {
-    Component = "network"
-    Name      = "public-subnet-${count.index}"
-    "kubernetes.io/role/elb"    = "1"
+    Component                = "network"
+    Name                     = "public-subnet-${count.index}"
+    "kubernetes.io/role/elb" = "1"
   }
 }
 

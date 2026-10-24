@@ -1,7 +1,7 @@
 resource "aws_eip" "nat" {
   count      = 2
   domain     = "vpc"
-  depends_on =   [aws_internet_gateway.gw]
+  depends_on = [aws_internet_gateway.gw]
   region     = var.region
   tags = {
     Name      = "eip-nat-${count.index}"
