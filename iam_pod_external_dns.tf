@@ -7,31 +7,30 @@ resource "aws_iam_role_policy" "external_dns" {
   name = "external-dns-policy"
   role = aws_iam_role.external_dns.id
 
-  policy = {
-    "Version" : "2012-10-17",
-    "Statement" : [
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
       {
-        "Effect" : "Allow",
-        "Action" : [
+        Effect = "Allow"
+        Action = [
           "route53:ChangeResourceRecordSets",
           "route53:ListResourceRecordSets",
           "route53:ListTagsForResources"
-        ],
-        "Resource" : [
-          "arn:aws:route53:::hostedzone/*"
+        ]
+        Resource = [
+          aws_route53_zone.main.arn
         ]
       },
       {
-        "Effect" : "Allow",
-        "Action" : [
+        Effect = "Allow"
+        Action = [
           "route53:ListHostedZones"
-        ],
-        "Resource" : [
-          "*"
         ]
+        Resource = "*"
       }
     ]
-  }
+  })
 }
 
 resource "kubernetes_service_account_v1" "external_dns" {

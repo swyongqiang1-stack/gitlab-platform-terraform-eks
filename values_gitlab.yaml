@@ -4,6 +4,9 @@ global:
     https: true
     gitlab:
       name: gitlab.erben.cn
+      
+  kas:
+    enabled: false
 
   antiAffinity: soft
   affinity:
@@ -49,8 +52,8 @@ global:
     database: gitlabhq_production
 
     password:
-      secret: gitlab-secret
-      key: rds
+      secret: gitlab-rds-secret
+      key: password
 
 
   redis:
@@ -59,16 +62,16 @@ global:
 
     auth:
       enabled: true
-      secret: gitlab-secret
-      key: redis
+      secret: gitlab-redis-secret
+      key: password
 
 
   appConfig:
     object_store:
       enabled: true
       connection:
-        secret: gitlab-secret
-        key: s3
+        secret: gitlab-s3-secret
+        key: connection
 
     artifacts:
       bucket: 463884819678-artifacts

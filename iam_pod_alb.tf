@@ -23,5 +23,4 @@ resource "aws_eks_pod_identity_association" "alb" {
   service_account = kubernetes_service_account_v1.alb.metadata[0].name
   role_arn        = aws_iam_role.alb.arn
 
-  disable_session_tags = true
 }

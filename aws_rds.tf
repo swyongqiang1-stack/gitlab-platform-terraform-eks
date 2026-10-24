@@ -13,7 +13,7 @@ resource "aws_db_instance" "gitlab" {
   storage_encrypted     = true
 
   db_subnet_group_name   = aws_db_subnet_group.gitlab.name
-  vpc_security_group_ids = aws_security_group.rds.id
+  vpc_security_group_ids = [aws_security_group.rds.id]
 
   publicly_accessible = false
   port                = 5432

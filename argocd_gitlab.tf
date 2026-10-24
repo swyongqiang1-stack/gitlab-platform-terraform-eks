@@ -27,11 +27,11 @@ resource "kubernetes_manifest" "gitlab" {
             parameters = [
               {
                 name  = "global.psql.host"
-                value = data.aws_db_instance.rds.address
+                value = aws_db_instance.gitlab.address
               },
               {
                 name  = "global.redis.host"
-                value = data.aws_elasticache_replication_group.gitlab.primary_endpoint_address
+                value = aws_elasticache_replication_group.gitlab.primary_endpoint_address
               },
               {
                 name  = "global.ingress.annotations.alb\\.ingress\\.kubernetes\\.io/certificate-arn"

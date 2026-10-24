@@ -48,7 +48,7 @@ singleBinary:
 
 serviceAccount:
   create: false
-  name: loki
+  name: loki-s3-sa
 
 minio:
   enabled: false

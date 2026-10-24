@@ -11,7 +11,7 @@ resources:
 
 serviceAccount:
   create: false
-  name: external-secrets-sa
+  name: eso-sa
   annotations: {}
 
 rbac:

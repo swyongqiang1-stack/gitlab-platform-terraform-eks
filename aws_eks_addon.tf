@@ -34,9 +34,12 @@ resource "aws_eks_addon" "ebs_csi_driver" {
     Component = "storage"
   }
   pod_identity_association {
-    service_account = "ebs-csi-sa"
+    service_account = "ebs-csi-controller-sa"
     role_arn        = aws_iam_role.ebs.arn
   }
+    depends_on = [
+    aws_eks_addon.pod_identity_agent
+    ]
 }
 
 

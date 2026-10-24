@@ -1,11 +1,10 @@
 resource "kubernetes_manifest" "secret_store" {
   manifest = {
     apiVersion = "external-secrets.io/v1"
-    kind       = "SecretStore"
+    kind       = "ClusterSecretStore"
 
     metadata = {
-      name      = "aws-secrets"
-      namespace = "gitlab"
+      name = "aws-secrets"
     }
 
     spec = {
