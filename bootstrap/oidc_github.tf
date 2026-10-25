@@ -4,12 +4,6 @@ resource "aws_iam_openid_connect_provider" "github" {
   client_id_list = ["sts.amazonaws.com"]
 }
 
-
-
-locals {
-  repo = "swyongqiang1-stack/gitlab-platform-terraform-eks"
-}
-
 resource "aws_iam_role" "github" {
   name = "github"
 
@@ -28,7 +22,7 @@ resource "aws_iam_role" "github" {
 
         Condition = {
           StringEquals = {
-            "token.actions.githubusercontent.com:sub" = "repo:${local.repo}:ref:refs/heads/main"
+            "token.actions.githubusercontent.com:sub" = "repo:swyongqiang1-stack@281670076/gitlab-platform-terraform-eks@1374038957:ref:refs/heads/main"
 
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
