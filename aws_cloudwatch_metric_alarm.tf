@@ -46,7 +46,7 @@ resource "aws_cloudwatch_metric_alarm" "Valkey_cpu" {
   # list of metrics
 
   dimensions = {
-    CacheClusterId = aws_elasticache_replication_group.gitlab.member_clusters[0]
+    CacheClusterId = one(aws_elasticache_replication_group.gitlab.member_clusters)
     CacheNodeId    = "0001"
   }
 
