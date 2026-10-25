@@ -13,6 +13,7 @@ resource "aws_elasticache_replication_group" "gitlab" {
   subnet_group_name  = aws_elasticache_subnet_group.gitlab.name
   security_group_ids = [aws_security_group.valkey.id]
 
+
   parameter_group_name = aws_elasticache_parameter_group.gitlab.name
 
   transit_encryption_enabled = true
@@ -45,4 +46,10 @@ resource "aws_elasticache_parameter_group" "gitlab" {
     name  = "maxmemory-policy"
     value = "noeviction"
   }
+}
+
+
+resource "aws_elasticache_subnet_group" "gitlab" {
+  name       = "gitlab-valkey-subnet-group"
+  subnet_ids = module.vpc.private_subnet_db_id
 }

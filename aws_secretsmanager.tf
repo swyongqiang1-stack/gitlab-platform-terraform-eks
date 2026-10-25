@@ -50,9 +50,11 @@ resource "aws_secretsmanager_secret_version" "redis" {
 resource "aws_secretsmanager_secret_version" "s3" {
   secret_id = aws_secretsmanager_secret.gitlab["s3"].id
 
-  secret_string = yamlencode({
-    provider        = "AWS"
-    region          = "ap-southeast-1"
-    use_iam_profile = true
+  secret_string = jsonencode({
+    connection = yamlencode({
+      provider        = "AWS"
+      region          = "ap-southeast-1"
+      use_iam_profile = true
+    })
   })
 }

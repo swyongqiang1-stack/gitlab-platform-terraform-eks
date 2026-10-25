@@ -19,18 +19,11 @@ locals {
 
 locals {
   iam_user     = "arn:aws:iam::463884819678:user/terraform"
-  cluster_name = data.aws_eks_cluster.gitlab.name
+  cluster_name = aws_eks_cluster.gitlab.name
   repo         = "swyongqiang1-stack/gitlab-platform-terraform-eks"
-  domain_arn   = data.aws_acm_certificate.gitlab.arn
+  domain_arn   = aws_acm_certificate.gitlab.arn
   email        = "gohu@outlook.com"
 }
 
-locals {
-  namespace = {
-    kube_system = "kube-system"
-    gitlab      = "gitlab"
-    monitoring  = "monitoring"
-  }
-}
 
 

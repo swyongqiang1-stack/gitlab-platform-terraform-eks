@@ -15,3 +15,12 @@ resource "kubernetes_namespace_v1" "monitoring" {
     name = "monitoring"
   }
 }
+
+resource "kubernetes_namespace_v1" "argocd" {
+  metadata {
+    labels = {
+      namespaces = "argocd"
+    }
+    name = "argocd"
+  }
+}

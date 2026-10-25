@@ -80,8 +80,7 @@ resource "aws_cloudwatch_metric_alarm" "alb" {
   # list of metrics
 
   dimensions = {
-    LoadBalancer     = data.aws_lb.gitlab.arn_suffix
-    AvailabilityZone = local.AZ.region
+    LoadBalancer = data.aws_lb.gitlab.arn_suffix
   }
 
   tags = {

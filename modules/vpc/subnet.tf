@@ -108,3 +108,4 @@ resource "aws_db_subnet_group" "gitlab" {
   name       = "gitlab-db"
   subnet_ids = aws_subnet.private_db[*].id
 }
+

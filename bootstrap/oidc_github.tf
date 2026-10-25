@@ -37,3 +37,9 @@ resource "aws_iam_role" "github" {
     ]
   })
 }
+
+
+resource "aws_iam_role_policy_attachment" "github" {
+  role       = aws_iam_role.github.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}

@@ -40,14 +40,14 @@ resource "aws_iam_role_policy" "loki_s3" {
 resource "kubernetes_service_account_v1" "loki_s3" {
   metadata {
     name      = "loki-s3-sa"
-    namespace = local.namespace.monitoring
+    namespace = kubernetes_namespace_v1.monitoring.metadata[0].name
   }
 }
 
 
 resource "aws_eks_pod_identity_association" "loki_s3" {
-  cluster_name    = local.cluster_name
-  namespace       = local.namespace.monitoring
+  cluster_name    = aws_eks_cluster.gitlab.name
+  namespace       = kubernetes_namespace_v1.monitoring.metadata[0].name
   service_account = kubernetes_service_account_v1.loki_s3.metadata[0].name
   role_arn        = aws_iam_role.loki_s3.arn
 

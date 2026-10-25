@@ -4,10 +4,10 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   version    = "10.3.0"
 
-  namespace        = "argocd"
+  namespace        = kubernetes_namespace_v1.argocd.metadata[0].name
   create_namespace = false
 
   values = [
-    file("${path.module}/values/argocd.yaml")
+    file("${path.module}/values_argocd.yaml")
   ]
 }

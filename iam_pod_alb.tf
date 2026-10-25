@@ -13,13 +13,13 @@ resource "aws_iam_role_policy" "alb" {
 resource "kubernetes_service_account_v1" "alb" {
   metadata {
     name      = "alb-sa"
-    namespace = local.namespace.kube_system
+    namespace = kubernetes_namespace_v1.kube_system.metadata[0].name
   }
 }
 
 resource "aws_eks_pod_identity_association" "alb" {
-  cluster_name    = local.cluster_name
-  namespace       = local.namespace.kube_system
+  cluster_name    = aws_eks_cluster.gitlab.name
+  namespace       = kubernetes_namespace_v1.kube_system.metadata[0].name
   service_account = kubernetes_service_account_v1.alb.metadata[0].name
   role_arn        = aws_iam_role.alb.arn
 

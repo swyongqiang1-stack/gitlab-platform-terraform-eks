@@ -19,16 +19,6 @@ rbac:
 
 installCRDs: true
 
-webhook:
-  create: true
-  replicaCount: 2
-  resources:
-    requests:
-      cpu: 50m
-      memory: 64Mi
-    limits:
-      memory: 256Mi
-
 certController:
   create: true
   resources:
