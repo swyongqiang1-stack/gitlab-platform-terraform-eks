@@ -5,6 +5,9 @@ resource "aws_eks_addon" "cni" {
     Name      = "cni"
     Component = "network"
   }
+  depends_on = [
+    aws_eks_node_group.gitlab
+  ]
 }
 
 resource "aws_eks_addon" "coredns" {
@@ -14,6 +17,9 @@ resource "aws_eks_addon" "coredns" {
     Name      = "coredns"
     Component = "network"
   }
+  depends_on = [
+    aws_eks_node_group.gitlab
+  ]
 }
 
 resource "aws_eks_addon" "kube_proxy" {
@@ -23,6 +29,9 @@ resource "aws_eks_addon" "kube_proxy" {
     Name      = "kube-proxy"
     Component = "network"
   }
+  depends_on = [
+    aws_eks_node_group.gitlab
+  ]
 }
 
 
@@ -52,6 +61,9 @@ resource "aws_eks_addon" "pod_identity_agent" {
     Name      = "pod_identity_agent"
     Component = "identity"
   }
+  depends_on = [
+    aws_eks_node_group.gitlab
+  ]
 }
 
 

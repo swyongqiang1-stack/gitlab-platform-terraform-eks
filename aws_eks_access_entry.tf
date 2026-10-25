@@ -24,7 +24,7 @@ resource "aws_eks_access_policy_association" "gitlab" {
 
 resource "aws_eks_access_entry" "github" {
   cluster_name  = aws_eks_cluster.gitlab.name
-  principal_arn = aws_iam_role.github.arn
+  principal_arn = data.aws_iam_role.github.arn
 }
 
 

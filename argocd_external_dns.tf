@@ -34,7 +34,7 @@ resource "kubernetes_manifest" "external_dns" {
 
       destination = {
         server    = "https://kubernetes.default.svc"
-        namespace = local.namespace.kube_system
+        namespace = "kube-system"
       }
 
       syncPolicy = {

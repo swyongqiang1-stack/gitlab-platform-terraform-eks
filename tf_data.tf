@@ -1,3 +1,12 @@
+data "kubernetes_namespace_v1" "kube_system" {
+  metadata {
+    name = "kube-system"
+  }
+}
+
+data "aws_iam_role" "github" {
+  name = "github"
+}
 
 
 data "aws_iam_policy_document" "assume_role" {

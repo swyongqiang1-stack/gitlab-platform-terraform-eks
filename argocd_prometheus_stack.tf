@@ -34,7 +34,7 @@ resource "kubernetes_manifest" "prometheus_stack" {
 
       destination = {
         server    = "https://kubernetes.default.svc"
-        namespace = local.namespace.monitoring
+        namespace = kubernetes_namespace_v1.monitoring.metadata[0].name
       }
 
       syncPolicy = {

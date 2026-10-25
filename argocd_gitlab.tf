@@ -49,7 +49,7 @@ resource "kubernetes_manifest" "gitlab" {
 
       destination = {
         server    = "https://kubernetes.default.svc"
-        namespace = local.namespace.gitlab
+        namespace = kubernetes_namespace_v1.gitlab.metadata[0].name
       }
 
       syncPolicy = {
