@@ -1,0 +1,113 @@
+# ==========================================
+# 1. Terraform
+# ==========================================
+
+# Provider / Module 
+**/.terraform/*
+.terraform.d/
+.terragrunt-cache/
+
+# Terraform State 
+*.tfstate
+*.tfstate.*
+
+# Terraform Plan
+*.tfplan
+*.tfplan.*
+tfplan
+tfplan.*
+plan.out
+
+# Terraform temp file
+crash.log
+crash.*.log
+.terraform.tfstate.lock.info
+
+# Terraform over
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI local
+.terraformrc
+terraform.rc
+
+
+# ==========================================
+# 2. AWS / Kubernetes / Helm
+# ==========================================
+
+# local AWS / Kubernetes 
+.aws/
+.kube/
+.ssh/
+*.kubeconfig
+kubeconfig
+
+# secret key
+*.pem
+*.key
+*.p12
+*.pfx
+
+
+
+# ==========================================
+# 3. Python
+# ==========================================
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Python venv
+.venv/
+venv/
+env/
+
+# Python package
+build/
+dist/
+*.egg-info/
+
+
+# ==========================================
+# 4. env / sensitive
+# ==========================================
+
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# local sensitive config
+config.local.json
+config.local.yaml
+credentials.json
+
+
+# ==========================================
+# 5. log / temp file
+# ==========================================
+
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+
+# ==========================================
+# 6. vs / os
+# ==========================================
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

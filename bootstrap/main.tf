@@ -20,7 +20,7 @@ provider "aws" {
 
 
 resource "aws_s3_bucket" "gitlab" {
-  bucket        = "elden-state-bucket"
+  bucket        = "elden-state-bucket-gitlab"
   force_destroy = false
 
   lifecycle {
@@ -35,7 +35,7 @@ resource "aws_s3_bucket" "gitlab" {
 
 
 resource "aws_s3_bucket_versioning" "state" {
-  bucket = "elden-state-bucket"
+  bucket = "elden-state-bucket-gitlab"
 
   versioning_configuration {
     status = "Enabled"
